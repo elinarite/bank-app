@@ -1,0 +1,30 @@
+<!--<?xml version='1.0' encoding='utf-8'?>-->
+<!--<!DOCTYPE hibernate-configuration PUBLIC-->
+<!--    "-//Hibernate/Hibernate Configuration DTD//EN"-->
+<!--    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">-->
+<!--<hibernate-configuration>-->
+<!--  <session-factory>-->
+<!--&lt;!&ndash;    <property name="connection.url"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <property name="connection.driver_class"/>&ndash;&gt;-->
+<!--    <property name="connection.url">jdbc:mysql://localhost:3306/</property>-->
+<!--&lt;!&ndash;            <property name="connection.driver_class">org.mysql.Driver</property>&ndash;&gt;-->
+<!--    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
+<!--&lt;!&ndash;    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>&ndash;&gt;-->
+
+<!--    <property name="connection.username">root</property>-->
+<!--    <property name="connection.password">Elina1980.</property>-->
+
+<!--    <property name="hibernate.cache.use_second_level_cache">true</property>-->
+<!--    <property name="hibernate.generate_statistics">true</property>-->
+<!--    &lt;!&ndash; <property name="connection.username"/> &ndash;&gt;-->
+<!--    &lt;!&ndash; <property name="connection.password"/> &ndash;&gt;-->
+<!--    <mapping class="com.example.bankApp.entity.Account"/>-->
+<!--    <mapping class="com.example.bankApp.entity.Agreement"/>-->
+<!--    <mapping class="com.example.bankApp.entity.Client"/>-->
+<!--    <mapping class="com.example.bankApp.entity.Manager"/>-->
+<!--    <mapping class="com.example.bankApp.entity.Product"/>-->
+<!--    <mapping class="com.example.bankApp.entity.Transaction"/>-->
+<!--&lt;!&ndash;     DB schema will be updated if needed&ndash;&gt;-->
+<!--&lt;!&ndash;     <property name="hibernate.hbm2ddl.auto">update</property>&ndash;&gt;-->
+<!--  </session-factory>-->
+<!--</hibernate-configuration>-->
