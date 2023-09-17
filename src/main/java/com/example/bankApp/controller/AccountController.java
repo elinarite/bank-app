@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@Validated
+//@Validated
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/account")
@@ -96,10 +96,10 @@ public class AccountController {
                 @RequestParam(required = false) Integer type,
                 @Balance @RequestParam(required = false) BigDecimal balance){
 
-
             accountService.updateAccountByParam(id, type, balance);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+
     @PostMapping("/update/active")
     public ResponseEntity<Account> updateAccountByIsActive(@RequestBody UUID id,
                                                         @RequestParam(required = false) boolean isActive){

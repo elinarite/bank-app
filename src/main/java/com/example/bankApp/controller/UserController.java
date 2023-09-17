@@ -1,37 +1,64 @@
 package com.example.bankApp.controller;
 
-import com.example.bankApp.entity.User;
-import com.example.bankApp.service.UserService;
-import lombok.RequiredArgsConstructor;
+import com.example.bankApp.entity.AuthRequest;
+import com.example.bankApp.entity.UserInfo;
+import com.example.bankApp.entity.UserInfoService;
+import com.example.bankApp.sequiringweb.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
-@Controller
-public class UserController {
+@RestController
+    @RequestMapping("/auth")
+    public class UserController {
 
-    private final UserService userService;
+        @Autowired
+        @Qualifier("userInfoService")
+        private UserInfoService userInfoService;
 
-    // Go to Registration Page
-    @GetMapping("/register")
-    public String register() {
-        return "registerUser";
+        @Autowired
+        private JwtService jwtService;
+
+        @Autowired
+        private AuthenticationManager authenticationManager;
+
+        @GetMapping("/welcome")
+        public String welcome() {
+            return "Welcome this endpoint is not secure";
+        }
+
+        @PostMapping("/addNewUser")
+        public String addNewUser(@RequestBody UserInfo userInfo) {
+            return userInfoService.addUser(userInfo);
+        }
+
+        @GetMapping("/user/userProfile")
+        @PreAuthorize("hasAuthority('ROLE_USER')")
+        public String userProfile() {
+            return "Welcome to User Profile";
+        }
+
+        @GetMapping("/admin/adminProfile")
+        @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+        public String adminProfile() {
+            return "Welcome to Admin Profile";
+        }
+
+        @PostMapping("/generateToken")
+        public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+            if (authentication.isAuthenticated()) {
+                return jwtService.generateToken(authRequest.getUsername());
+            } else {
+                throw new UsernameNotFoundException("invalid user request !");
+            }
+        }
+
     }
 
-    // Read Form data to save into DB
-    @PostMapping("/saveUser")
-    public String saveUser(
-            @ModelAttribute User user,
-            Model model
-    )
-    {
-        Integer id = userService.saveUser(user);
-        String message = "User '"+id+"' saved successfully !";
-        model.addAttribute("msg", message);
-        return "registerUser";
-    }
-}
+

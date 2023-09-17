@@ -18,11 +18,10 @@ create table if not exists bank_app.managers
 create table if not exists bank_app.clients
 (
     id            binary(16) primary key,
-    status        int(1)      not null,
-    tax_code      varchar(20) not null,
+    status        int(1),
+    tax_code      varchar(20),
     first_name    varchar(50) not null,
     last_name     varchar(50) not null,
-    date_of_birth datetime    not null,
     email         varchar(60) not null,
     address       varchar(80) not null,
     phone         varchar(16) not null,

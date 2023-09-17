@@ -53,11 +53,11 @@ public class ExceptionHandler {
         return ResponseEntity.status(status).body("Cant delete - object missing");
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> missingData(ConstraintViolationException ex) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        return ResponseEntity.status(status).body(ErrorMessage.VALIDATION_FAILED);
-    }
+//    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
+//    public ResponseEntity<String> missingData(ConstraintViolationException ex) {
+//        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
+//        return ResponseEntity.status(status).body(ErrorMessage.VALIDATION_FAILED);
+//    }
 //    @org.springframework.web.bind.annotation.ExceptionHandler
 //    public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException exception) {
 //        List<String> extensions = exception.getConstraintViolations()

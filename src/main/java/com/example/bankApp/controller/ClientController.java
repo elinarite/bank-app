@@ -10,20 +10,22 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@Validated
+//@Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/auth/user/client")
 public class ClientController {
     private final ClientService clientservice;
 
     @GetMapping("/id")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<Client> findById(@RequestBody UUID id) {
         return clientservice.findById(id);
     }

@@ -1,9 +1,11 @@
 spring:
   main:
     banner-mode: console
+    allow-circular-references: true
+
 
   datasource:
-    url: ${datasource.url} bank_app?createDatabaseIfNotExist=true
+    url: ${datasource.url}bank_app?createDatabaseIfNotExist=true
     username: root
     password: Elina1980.
 
@@ -16,6 +18,9 @@ spring:
         logging.level.org.springframework.web: DEBUG
         logging.level.org.hibernate.SQL: DEBUG
         logging.level.org.hibernate.type: TRACE
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
       properties:
         hibernate:
           SQL: INFO
@@ -28,8 +33,26 @@ spring:
     drop-first: true
 
 
+
+
+#  security:
+#    filter:
+#      order:  10
+#  security:
+#    user:
+#     password: Test12345_
+
+
+
+
 server:
   port: 8080
+#
+#admin:
+#  username: root
+#  password: root
+
+
 
 
 
