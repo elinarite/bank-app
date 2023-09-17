@@ -11,19 +11,16 @@ Data consist of clients, accounts, products, accounts, transactions and managers
 - Lombok - v.1.18.26
 - Hibernate - v.6.1.7
 - Spring Boot v.3.0.4
+- Spring Security v.3.2.5
 - MySQL v.8.0.32
 - Liquibase v.4.23.0
 - Mockito
 - JUnit
-- Swagger
-- AOP
-- MapStruct
-- SLF4J
+- MapStruct 1.4.2
 
 ___
 
-* [ApiDoc Link](http://localhost:8080/swagger-ui/index.html)
-* [JACOCO Link](http://localhost:63342/BankProj/target/site/jacoco/index.html)
+* [ERD link](https://dbdiagram.io/d/6506caca02bd1c4a5eb82680)
 
 ___
 
@@ -31,62 +28,62 @@ ___
 
 ### Table Client ( Bank's Clients table )
 
-| Column name | Type        | Description                                   |
-|-------------|-------------|-----------------------------------------------|
-| id          | binary(16)  | id key of row - unique, not null, primary key | 
-| manager_id  | bigint      | manager id                                    |
-| status      | integer(1)  | client's status                               |
-| tax_code    | varchar(20) | client's TAX code (external ID) , unique      |
-| first_name  | varchar(50) | client's name                                 |
-| last_name   | varchar(50) | client's surname                              |
-| email       | varchar(60) | client's e-mail                               |                               
-| address     | varchar(80) | client's address                              |
-| phone       | varchar(20) | client's phone                                |                                
-| created_at  | timestamp   | timestamp of row creation                     |
-| updated_at  | timestamp   | timestamp of last update                      |
+| Column name   | Type        | Description                                   |
+|---------------|-------------|-----------------------------------------------|
+| id            | binary(16)  | id key of row - unique, not null, primary key |
+| status        | integer(1)  | client's status                               |
+| tax_code      | varchar(20) | client's TAX code, unique                     |
+| first_name    | varchar(50) | client's name                                 |
+| last_name     | varchar(50) | client's surname                              |
+| date_of_birth | varchar(50) | client's surname                              |
+| email         | varchar(60) | client's e-mail , unique                      |                               
+| address       | varchar(80) | client's address                              |
+| phone         | varchar(16) | client's phone                                |                                
+| created_at    | timestamp   | timestamp of row creation                     |
+| updated_at    | timestamp   | timestamp of last update                      |
 
 ### Table Account (Bank's accounts table)
 
-| Column name   | Type          | Description                                   |
-|---------------|---------------|-----------------------------------------------|
-| id            | binary(16)    | id key of row - unique, not null, primary key |
-| client_id     | binary(16)    | client id                                     |         
-| name          | varchar(100)  | a name of account                             |                              
-| type          | integer(1)    | account type                                  |                                   
-| status        | integer(1)    | status of tne account                         |                          
-| balance       | decimal(15,2) | balance of the account in currency            | 
-| currency_code | integer(2)    | account currency code                         |                          
-| created_at    | timestamp     | timestamp of row creation                     |
-| updated_at    | timestamp     | timestamp of last update                      |
+| Column name    | Type          | Description                                   |
+|----------------|---------------|-----------------------------------------------|
+| id             | binary(16)    | id key of row - unique, not null, primary key |
+| client_id      | binary(16)    | client id                                     |  
+| manager_id     | bigint        | manager id                                    |
+| account_number | varchar(20)   | a name of account, unique                     |                              
+| type           | integer(1)    | account type                                  |                                   
+| is_active      | boolean       | status of tne account                         |                          
+| balance        | decimal(15,2) | balance of the account in currency            | 
+| currency_code  | varchar(3)    | account currency code                         |                          
+| created_at     | timestamp     | timestamp of row creation                     |
+| updated_at     | timestamp     | timestamp of last update                      |
 
 ### Table Product ( Sets of Bank's available Products)
 
 | Column name   | Type         | Description                                                              |
 |---------------|--------------|--------------------------------------------------------------------------|
 | id            | bigint       | id key of row - unique, not null, primary key                            |
-| manager_id    | bigint       | manager id                                                               |
-| name          | varchar(70)  | product's name                                                           |
-| status        | integer(1)   | product's status                                                         |
+| product_typ   | varchar(70)  | product's name, unique                                                   |
+| is_active     | boolean      | product's status                                                         |
 | currency_code | integer(2)   | currency of product                                                      |
 | interest_rate | decimal(6,4) | interest rate of product                                                 |
 | limit         | integer      | limit of credit a product ( 0 - no limit, 0 < - limit which can be used) |
 | created_at    | timestamp    | timestamp of row creation                                                |
 | updated_at    | timestamp    | timestamp of last update                                                 |
 
-### Table Agreement (Bank's - Client's  Agreement table)
+### Table Agreement (Bank's - Account's  Agreement table)
 
 | Column name   | Type          | Description                                   |
 |---------------|---------------|-----------------------------------------------|
 | id            | bigint        | id key of row - unique, not null, primary key |
-| account_id    | binary(16)    | client's account                              | 
+| account_id    | binary(16)    | account's id(table account)                   | 
 | product_id    | bigint        | product id (table product)                    | 
 | interest_rate | decimal(6,4)	 | current interest rate of agreement            | 
-| status        | integer       | agreement's status                            | 
+| is_active     | boolean       | agreement's status                            |
 | sum           | decimal(15,2) | amount of agreement                           | 
 | created_at    | timestamp     | timestamp of row creation                     | 
 | updated_at    | timestamp     | timestamp of last update                      | 
 
-### Table Transaction (Bank's Product table)
+### Table Transaction (Bank's - Account's Transaction table)
 
 | Column name        | Type          | Description                                   |
 |--------------------|---------------|-----------------------------------------------|
@@ -105,7 +102,8 @@ ___
 |-------------|-------------|-----------------------------------------------|
 | 	id         | bigint      | id key of row - unique, not null, primary key | 
 | 	first_name | varchar(50) | manager's name                                | 
-| 	last_name  | varchar(50) | manager's surname                             | 
-| 	status     | integer     | manager's status                              | 
+| 	last_name  | varchar(50) | manager's surname                             |
+| 	email      | varchar(60) | manager's email                               |
+| 	is_active  | boolean     | manager's status                              | 
 | 	created_at | timestamp   | timestamp of row creation                     | 
 | 	update_at  | timestamp   | timestamp of row update                       |

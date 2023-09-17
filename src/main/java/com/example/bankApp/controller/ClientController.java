@@ -20,46 +20,45 @@ import java.util.UUID;
 //@Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/auth/user/client")
+@RequestMapping("/auth")
 public class ClientController {
     private final ClientService clientservice;
 
-    @GetMapping("/id")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/user/client/id")
     public ResponseEntity<Client> findById(@RequestBody UUID id) {
         return clientservice.findById(id);
     }
 
-    @GetMapping("/all/short")
+    @GetMapping("/admin/all/short")
     public ResponseEntity<List<ClientForManagerDto>> findAllShort() {
         return ResponseEntity.ok(clientservice.findAllShort());
 
     }
 
-    @GetMapping("/all/full")
+    @GetMapping("/admin/all/full")
     public ResponseEntity<List<Client>> findAllFull() {
         return clientservice.findAll();
     }
 
     //
-    @GetMapping("/accounts")
+    @GetMapping("/user/accounts")
     public ResponseEntity<List<Account>> findAccountsByClientId(@RequestBody UUID clientId) {
         return clientservice.findAccountsByClientId(clientId);
     }
 
-    @PostMapping("/search")
+    @PostMapping("/admin/search")
     public ResponseEntity<List<Client>> searchByParam(@RequestParam(required = false) String firstName,
                                                       @RequestParam(required = false) String lastName,
                                                       @RequestParam(required = false) String email) {
         return clientservice.findClientByParam(firstName, lastName, email);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/admin/add")
     public ResponseEntity<Client> add(@RequestBody @Valid Client client) {
         return new ResponseEntity<>(clientservice.add(client), HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
+    @PostMapping("/admin/update")
     public ResponseEntity<Client> updateClientByParam(@RequestBody UUID id,
                                                       @TaxCode @RequestParam(required = false) String taxCode,
                                                       @Name @RequestParam(required = false) String firstName,
@@ -72,10 +71,9 @@ public class ClientController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/admin/delete")
     public ResponseEntity<String> delete(@RequestBody UUID id) {
         clientservice.deleteById(id);
         return new ResponseEntity<>(ErrorMessage.DELETE_BY_ID + id, HttpStatus.OK);
     }
 }
-

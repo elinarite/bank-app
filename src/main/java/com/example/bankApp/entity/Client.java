@@ -30,7 +30,7 @@ public class Client {
     private UUID id;
 
 //    @NotNull(message = "Status cant be empty")
-//    @Column(name = "status")
+    @Column(name = "status")
     private Integer status;
 
 //    @NotEmpty(message = "Tax Code cant be empty")
@@ -49,13 +49,13 @@ public class Client {
     private String lastName;
 
 //    @NotNull(message = "Date of birth cant be empty")
-//    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
 //    @NotEmpty(message = "Email cant be empty")
 //    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-//    @Column(name = "email")
+    @Column(name = "email")
     private String email;
 
 //    @NotEmpty(message = "Address cant be empty")
@@ -65,7 +65,7 @@ public class Client {
 
 //    @NotEmpty(message = "Phone cant be empty")
 //    @Pattern(regexp = "\\+\\d{8,15}", message = "Phone is not valid")
-//    @Column(name = "phone")
+    @Column(name = "phone")
     private String phone;
 
 

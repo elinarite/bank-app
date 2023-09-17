@@ -1,12 +1,11 @@
 package com.example.bankApp.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.bankApp.entity.enums.Roles;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,6 +20,14 @@ public class UserInfo {
     private String email;
     private String password;
     private String roles;
+
+//    @ElementCollection(fetch= FetchType.EAGER)
+//    @CollectionTable(
+//            name="roles",
+//            joinColumns = @JoinColumn(name="user_id")
+//    )
+//    @Column(name="user_role")
+//    private List<String> roles;
 
 }
 
