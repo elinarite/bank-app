@@ -2,22 +2,17 @@ package com.example.bankApp.controller;
 
 import com.example.bankApp.entity.AuthRequest;
 import com.example.bankApp.entity.UserInfo;
-import com.example.bankApp.entity.UserInfoDetails;
 import com.example.bankApp.entity.UserInfoService;
-import com.example.bankApp.entity.enums.Roles;
-import com.example.bankApp.sequiringweb.JwtService;
+import com.example.bankApp.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

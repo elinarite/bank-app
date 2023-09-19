@@ -28,8 +28,6 @@ public class ClientService {
         Client client = clientRepository.findById(id).get();
         return ResponseEntity.ok(client);
     }
-//
-//    @Cacheable(cacheNames = {"managerDataAll"})
 
     public List<ClientForManagerDto> findAllShort() {
         List<Client> allClients = clientRepository.findAll();
@@ -37,6 +35,7 @@ public class ClientService {
                 .map(clientMapper::toClientforManagerDto)
                 .collect(Collectors.toList());
     }
+
     public ResponseEntity<List<Client>> findAll() {
         List<Client> allClients = clientRepository.findAll();
         if (allClients.isEmpty()) {
@@ -44,8 +43,7 @@ public class ClientService {
         }
         return ResponseEntity.ok(allClients);
     }
-//
-//    //    @Cacheable(cacheNames = {"clientDataByManager"})
+
     public ResponseEntity<List<Account>> findAccountsByClientId(UUID clientId) {
         List<Account> accounts = clientRepository.findAccountsByClientId(clientId);
         if (accounts.isEmpty()) {
@@ -73,11 +71,9 @@ public class ClientService {
     public void updateClientByParam(UUID id, String taxCode, String firstName, String lastName, String email, String address, String phone) {
         clientRepository.updateClientByParam(id, taxCode, firstName, lastName, email, address, phone );
     }
+
     @Transactional
     public void deleteById(UUID id) {
         clientRepository.deleteById(id);
     }
-
 }
-
-

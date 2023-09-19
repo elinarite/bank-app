@@ -8,6 +8,7 @@ import lombok.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Value
 public class ClientForManagerDto {
@@ -16,7 +17,6 @@ public class ClientForManagerDto {
     String taxCode;
     String firstName;
     String lastName;
-    LocalDate dateOfBirth;
     String email;
     String address;
     String phone;

@@ -6,6 +6,7 @@ import com.example.bankApp.entity.Account;
 import com.example.bankApp.entity.Client;
 import com.example.bankApp.entity.enums.CurrencyCode;
 import com.example.bankApp.service.AccountService;
+import com.example.bankApp.util.ErrorMessage;
 import com.example.bankApp.validation.Balance;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,112 +29,96 @@ public class AccountController {
 
     private final AccountService accountService;
 
-//    //todo with auth
-    @GetMapping("/{ownerId}/accounts")
-    public ResponseEntity<List<AccountForClientDto>> getAllByClientId(@PathVariable UUID ownerId) {
-        List<AccountForClientDto> accountDtoList = accountService.findAllByClientId(ownerId);
+    //todo OwnerId
+    @GetMapping("/user/accounts/{clientId}")
+    public ResponseEntity<List<AccountForClientDto>> getAllByClientId(@PathVariable UUID clientId) {
+        List<AccountForClientDto> accountDtoList = accountService.findAllByClientId(clientId);
         return ResponseEntity.ok(accountDtoList);
     }
 
-    //todo with auth
-    @GetMapping("/{ownerId}/account")
-    public ResponseEntity<AccountForClientDto> getByIdAndClient(@RequestBody UUID accountId, @PathVariable UUID ownerId) {
-        AccountForClientDto accountDto = accountService.findByIdAndClientId(accountId, ownerId).getBody();
+    @GetMapping("/user/account/{clientId}")
+    public ResponseEntity<AccountForClientDto> getByIdAndClientID(@RequestBody UUID accountId, @PathVariable UUID clientId) {
+        AccountForClientDto accountDto = accountService.findByIdAndClientId(accountId, clientId).getBody();
         return ResponseEntity.ok(accountDto);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/manager/id")
     public ResponseEntity<AccountForManagerDto> findById(@RequestBody UUID id) {
         AccountForManagerDto accountDto = accountService.findById(id).getBody();
         return ResponseEntity.ok(accountDto);
     }
 
-   // todo
-
-    @GetMapping("/all/by-currency")
-    public ResponseEntity<List<AccountForManagerDto>> findAlLByCurrencyCode(@RequestBody CurrencyCode currencyCode) {
-       List <AccountForManagerDto> accountDto = accountService.findAlLByCurrencyCode(currencyCode);
+    // todo
+    @GetMapping("/manager/all/by-currency")
+    public ResponseEntity<List<AccountForManagerDto>> findAlLByCurrencyCode(@RequestParam String currencyCode) {
+        List<AccountForManagerDto> accountDto = accountService.findAlLByCurrencyCode(currencyCode);
         return ResponseEntity.ok(accountDto);
     }
-//
-    @GetMapping("/all/short")
+
+    //
+    @GetMapping("/user/all/short")
     public ResponseEntity<List<AccountForManagerDto>> findAllShort() {
         return ResponseEntity.ok(accountService.findAllShort());
     }
 
-    @GetMapping("/all/full")
+    @GetMapping("/manager/all/full")
     public ResponseEntity<List<Account>> findAll() {
-
         return accountService.findAll();
     }
 
-    @GetMapping("/all/sorted-by-balance")
+    @PostMapping("/manager/all/sorted-by-balance")
     public ResponseEntity<List<AccountForManagerDto>> findAllOrderedByBalanceAsc() {
 
         return ResponseEntity.ok(accountService.findAllOrderedByBalanceAsc());
     }
-//
-//  todo
-//    @PostMapping("/search")
-//    public ResponseEntity<Page<CardAccountData>> searchByParam(@RequestBody CardAccountDataSearchValue cardAccountDataSearchValue) {
-//        Page<CardAccountData> result = cardAccountDataService.search(cardAccountDataSearchValue);
-//        if (result.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return ResponseEntity.ok(result);
-//    }
-//
-    @PostMapping("/add")
+
+    @PostMapping("/manager/balance-list-by-client")
+    public ResponseEntity<List<Object[]>> getTotalBalanceByClientId() {
+        return accountService.getTotalBalanceByClientId();
+    }
+
+    @PostMapping("/manager/total-balance")
+    public ResponseEntity<Map<String, Object>> getBalanceSummary() {
+        return accountService.getBalanceSummary();
+    }
+
+    @PostMapping("/manager/balance-by-currency")
+    public ResponseEntity<List<Object[]>> getTotalBalanceByCurrencyData() {
+        return accountService.getTotalBalanceByCurrencyData();
+    }
+
+    @PostMapping("/manager/balance-client-id")
+    public ResponseEntity<Map<String, Object>> getBalanceSummaryByClientId(@RequestParam UUID clientId) {
+        return accountService.getBalanceSummaryByClientId(clientId);
+    }
+
+    @PutMapping("manager/add")
     public ResponseEntity<Account> add(@Valid @RequestBody Account account) {
         return new ResponseEntity<>(accountService.add(account), HttpStatus.CREATED);
     }
-//
 
-    //todo
+    @PutMapping("manager/update")
+    public ResponseEntity<Account> updateAccountByParam(@RequestBody UUID id,
+                                                        @RequestParam(required = false) Integer type,
+                                                        @Balance @RequestParam(required = false) BigDecimal balance) {
 
-        @PostMapping("/update")
-        public ResponseEntity<Account> updateAccountByParam(@RequestBody UUID id,
-                @RequestParam(required = false) Integer type,
-                @Balance @RequestParam(required = false) BigDecimal balance){
+        accountService.updateAccountByParam(id, type, balance);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-            accountService.updateAccountByParam(id, type, balance);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
 
-    @PostMapping("/update/active")
+    @PutMapping("/manager/update/active")
     public ResponseEntity<Account> updateAccountByIsActive(@RequestBody UUID id,
-                                                        @RequestParam(required = false) boolean isActive){
-
+                                                           @RequestParam(required = false) boolean isActive) {
 
         accountService.updateAccountByIsActive(id, isActive);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-//
-//    @PutMapping("{id}/update-is-blocked") //todo
-//    public ResponseEntity<String> updateIsBlockedByID(
-//            @PathVariable Long id,
-//            @RequestParam boolean isBlocked) {
-//        cardAccountDataService.updateIsBlockedByID(id, isBlocked);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/balance-list-by-client")
-//    public ResponseEntity<List<Object[]>> getTotalBalanceByClient() {
-//        return cardAccountDataService.getTotalBalanceByClient();
-//    }
-//
-//    @GetMapping("/total-balance")
-//    public ResponseEntity<Map<String, Object>> getBalanceSummary() {
-//        return cardAccountDataService.getBalanceSummary();
-//    }
-//
-//    @GetMapping("/balance-by-currency")
-//    public ResponseEntity<List<Object[]>> getTotalBalanceByCurrencyData() {
-//        return cardAccountDataService.getTotalBalanceByCurrencyData();
-//    }
-//
-//    @GetMapping("/balance-client-id")
-//    public ResponseEntity<Map<String, Object>> getBalanceSummaryByClientId(@RequestBody Long clientId) {
-//        return cardAccountDataService.getBalanceSummaryByClientId(clientId);
-//    }
+
+    @DeleteMapping("manager/delete")
+    public ResponseEntity<String> delete(@RequestBody UUID id) {
+        accountService.deleteById(id);
+        return new ResponseEntity<>(ErrorMessage.DELETE_BY_ID + id, HttpStatus.OK);
+    }
+
 }

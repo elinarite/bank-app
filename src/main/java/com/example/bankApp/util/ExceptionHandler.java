@@ -1,6 +1,7 @@
 package com.example.bankApp.util;
 
 import jakarta.validation.ConstraintViolationException;
+import org.hibernate.TransactionException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,9 @@ public class ExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleInvalidArgument(MethodArgumentNotValidException ex){
+    public Map<String, String> handleInvalidArgument(MethodArgumentNotValidException ex) {
         Map<String, String> errorMap = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error-> errorMap.put(error.getField(), error.getDefaultMessage()));
+        ex.getBindingResult().getFieldErrors().forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
         return errorMap;
     }
 
@@ -39,7 +40,6 @@ public class ExceptionHandler {
         return ResponseEntity.status(status).body("Wrong request input");
     }
 
-    // todo 17.08.2023 Anton - change reply
     @org.springframework.web.bind.annotation.ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> wrongFkData(DataIntegrityViolationException ex) {
         String errorMessage = "Wrong input. Details: \n" + Objects.requireNonNull(ex.getRootCause()).getLocalizedMessage();
@@ -53,18 +53,15 @@ public class ExceptionHandler {
         return ResponseEntity.status(status).body("Cant delete - object missing");
     }
 
-//    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
-//    public ResponseEntity<String> missingData(ConstraintViolationException ex) {
-//        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
-//        return ResponseEntity.status(status).body(ErrorMessage.VALIDATION_FAILED);
-//    }
-//    @org.springframework.web.bind.annotation.ExceptionHandler
-//    public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException exception) {
-//        List<String> extensions = exception.getConstraintViolations()
-//                .stream()
-//                .map(violation -> new ErrorExtension(violation.getMessage(), ErrorCode.INVALID_PATH_VARIABLE))
-//                .collect(Collectors.toList());
-//        return new ResponseEntity<>(new ErrorResponse(ErrorCode.VALIDATION_FAILED, extensions), BAD_REQUEST);
-//    }
+    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> missingData(ConstraintViolationException ex) {
+        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
+        return ResponseEntity.status(status).body(ErrorMessage.VALIDATION_FAILED);
+    }
 
+    @org.springframework.web.bind.annotation.ExceptionHandler(TransactionException.class)
+    public ResponseEntity<String> missingData(TransactionException ex) {
+        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
+        return ResponseEntity.status(status).body(ErrorMessage.NOT_FOUND_RECORDS);
+    }
 }

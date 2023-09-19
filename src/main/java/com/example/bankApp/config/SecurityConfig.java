@@ -1,7 +1,7 @@
 package com.example.bankApp.config;
 
 import com.example.bankApp.entity.UserInfoService;
-import com.example.bankApp.sequiringweb.JwtAuthFilter;
+import com.example.bankApp.jwt.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -34,25 +33,6 @@ public class SecurityConfig {
         return new UserInfoService();
     }
 
-    // Configuring HttpSecurity
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http.csrf().disable()
-//                .authorizeHttpRequests()
-//                .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll()
-//                .and()
-//                .authorizeHttpRequests().requestMatchers("/auth/user/**").authenticated()
-//                .and()
-//                .authorizeHttpRequests().requestMatchers("/auth/admin/**").authenticated()
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authenticationProvider(authenticationProvider())
-//                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-//                .build();
-//    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -62,8 +42,34 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests().requestMatchers("/auth/user/**").hasAuthority("user")
                 .and()
-                .authorizeHttpRequests().requestMatchers("/auth/admin/**").hasAuthority("admin")
+                .authorizeHttpRequests().requestMatchers("/auth/manager/**").hasAuthority("manager")
                 .and()
+                .authorizeHttpRequests().requestMatchers("/account/user/**").hasAuthority("user")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/account/manager/**").hasAuthority("manager")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/manager-account/user/**").hasAuthority("user")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/manager-account/manager/**").hasAuthority("manager")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/client/user/**").hasAuthority("user")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/client/manager/**").hasAuthority("manager")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/transaction/user/**").hasAuthority("user")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/transaction/manager/**").hasAuthority("manager")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/agreement/user/**").hasAuthority("user")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/agreement/manager/**").hasAuthority("manager")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/product/user/**").hasAuthority("user")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/product/manager/**").hasAuthority("manager")
+                .and()
+//                .authorizeHttpRequests().requestMatchers("/**").hasAuthority("admin")
+//                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

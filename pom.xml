@@ -24,9 +24,9 @@
         <mapstruck.processor.version>1.4.2.Final</mapstruck.processor.version>
         <spring.secutiry.version>3.2.5.RELEASE</spring.secutiry.version>
         <thymeleaf.version>3.1.1.RELEASE</thymeleaf.version>
-        <jjwt.api.version>0.11.5</jjwt.api.version>
-        <jjwt.impl.version>0.11.5</jjwt.impl.version>
-        <jjwt.jackson.version>0.11.5</jjwt.jackson.version>
+<!--        <jjwt.api.version>0.11.5</jjwt.api.version>-->
+<!--        <jjwt.impl.version>0.11.5</jjwt.impl.version>-->
+<!--        <jjwt.jackson.version>0.11.5</jjwt.jackson.version>-->
 
     </properties>
 
@@ -120,17 +120,17 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>${jjwt.api.version}</version>
+            <version>0.11.5</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt.impl.version}</version>
+            <version>0.11.5</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt.jackson.version}</version>
+            <version>0.11.5</version>
         </dependency>
 
 <!--        &lt;!&ndash; https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api &ndash;&gt;-->

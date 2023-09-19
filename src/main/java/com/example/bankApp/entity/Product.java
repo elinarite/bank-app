@@ -31,7 +31,7 @@ public class Product {
     private boolean isActive;
 
     @Column(name = "currency_code", nullable = false)
-    private CurrencyCode currencyCode;
+    private String currencyCode;
 
     @Column(name = "interest_rate", nullable = false)
     private BigDecimal interestRate;

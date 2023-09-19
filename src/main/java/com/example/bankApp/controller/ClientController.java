@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-//@Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/client")
 public class ClientController {
     private final ClientService clientservice;
 
@@ -29,50 +28,48 @@ public class ClientController {
         return clientservice.findById(id);
     }
 
-    @GetMapping("/admin/all/short")
+    @GetMapping("/manager/all/short")
     public ResponseEntity<List<ClientForManagerDto>> findAllShort() {
         return ResponseEntity.ok(clientservice.findAllShort());
-
     }
 
-    @GetMapping("/admin/all/full")
+    @GetMapping("/manager/all/full")
     public ResponseEntity<List<Client>> findAllFull() {
         return clientservice.findAll();
     }
 
-    //
-    @GetMapping("/user/accounts")
+    @GetMapping("/manager/accounts")
     public ResponseEntity<List<Account>> findAccountsByClientId(@RequestBody UUID clientId) {
         return clientservice.findAccountsByClientId(clientId);
     }
 
-    @PostMapping("/admin/search")
+    @PostMapping("/manager/search")
     public ResponseEntity<List<Client>> searchByParam(@RequestParam(required = false) String firstName,
                                                       @RequestParam(required = false) String lastName,
                                                       @RequestParam(required = false) String email) {
         return clientservice.findClientByParam(firstName, lastName, email);
     }
 
-    @PostMapping("/admin/add")
+    @PutMapping("/manager/add")
     public ResponseEntity<Client> add(@RequestBody @Valid Client client) {
         return new ResponseEntity<>(clientservice.add(client), HttpStatus.CREATED);
     }
 
-    @PostMapping("/admin/update")
+    @PutMapping("/manager/update")
     public ResponseEntity<Client> updateClientByParam(@RequestBody UUID id,
-                                                      @TaxCode @RequestParam(required = false) String taxCode,
-                                                      @Name @RequestParam(required = false) String firstName,
-                                                      @Name @RequestParam(required = false) String lastName,
-                                                      @Email @RequestParam(required = false) String email,
-                                                      @Address @RequestParam(required = false) String address,
-                                                      @Phone @RequestParam(required = false) String phone) {
+                                                      @RequestParam(required = false) String taxCode,
+                                                      @RequestParam(required = false) String firstName,
+                                                      @RequestParam(required = false) String lastName,
+                                                      @RequestParam(required = false) String email,
+                                                      @RequestParam(required = false) String address,
+                                                      @RequestParam(required = false) String phone) {
 
         clientservice.updateClientByParam(id, taxCode, firstName, lastName, email, address, phone);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/admin/delete")
-    public ResponseEntity<String> delete(@RequestBody UUID id) {
+    @DeleteMapping("/manager/delete")
+    public ResponseEntity<String> deleteById(@RequestBody UUID id) {
         clientservice.deleteById(id);
         return new ResponseEntity<>(ErrorMessage.DELETE_BY_ID + id, HttpStatus.OK);
     }

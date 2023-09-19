@@ -84,11 +84,11 @@ VALUES (UUID_TO_BIN('d5ad9b48-4b3a-11ee-bbf9-10d0e2fa4154'), UUID_TO_BIN('38529b
         UUID_TO_BIN('3852a3e2-498d-11ee-bbf9-10d0e2fa4154'), 3, 100.75, 'Test5');
 
 INSERT INTO bank_app.products (id, product_typ, is_active, currency_code, interest_rate, product_limit)
-VALUES (1, 'Auto Loan', true, 2, 5.07, 50000),
-       (2, 'Personal Loans', true, 2, 4.5, 10000),
-       (3, 'Investment Products', true, 2, 1.2, 5000000),
-       (4, 'Home Loan', true, 2, 3, 500000),
-       (5, 'Overdraft', true, 2, 7.00, 500000);
+VALUES (1, 'Auto Loan', true, 'EUR', 5.07, 50000),
+       (2, 'Personal Loans', true, 'EUR', 4.5, 10000),
+       (3, 'Investment Products', true, 'EUR', 1.2, 5000000),
+       (4, 'Home Loan', true, 'USD', 2,  500000),
+       (5, 'Overdraft', true, 'USD', 7.00, 500000);
 
 INSERT INTO bank_app.agreements (id, account_id, product_id, interest_rate, is_active, sum)
 VALUES (1, UUID_TO_BIN('38529bfe-498d-11ee-bbf9-10d0e2fa4154'), 1, 5.00, true, 5000),

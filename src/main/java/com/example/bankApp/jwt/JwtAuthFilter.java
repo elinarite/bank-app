@@ -1,4 +1,4 @@
-package com.example.bankApp.sequiringweb;
+package com.example.bankApp.jwt;
 
 import com.example.bankApp.entity.UserInfoService;
 import jakarta.servlet.FilterChain;

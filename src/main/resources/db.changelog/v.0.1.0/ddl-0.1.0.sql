@@ -17,16 +17,16 @@ create table if not exists bank_app.managers
 
 create table if not exists bank_app.clients
 (
-    id            binary(16) primary key,
-    status        int(1),
-    tax_code      varchar(20),
-    first_name    varchar(50) not null,
-    last_name     varchar(50) not null,
-    email         varchar(60) not null,
-    address       varchar(80) not null,
-    phone         varchar(16) not null,
-    created_at    timestamp DEFAULT CURRENT_TIMESTAMP,
-    update_at     timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    id         binary(16) primary key,
+    status     int(1),
+    tax_code   varchar(20),
+    first_name varchar(50) not null,
+    last_name  varchar(50) not null,
+    email      varchar(60) not null,
+    address    varchar(80) not null,
+    phone      varchar(16) not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    update_at  timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     unique (tax_code, email)
 );
 
@@ -65,7 +65,7 @@ create table if not exists bank_app.products
     id            bigint primary key auto_increment,
     product_typ   varchar(70)   not null,
     is_active     boolean       not null default true,
-    currency_code int(2)        not null,
+    currency_code varchar(3)    not null,
     interest_rate decimal(6, 4) not null,
     product_limit int           not null,
     created_at    timestamp              DEFAULT CURRENT_TIMESTAMP,

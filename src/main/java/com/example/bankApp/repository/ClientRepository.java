@@ -19,9 +19,6 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
             "WHERE c.clientId.id = :clientId ")
     List<Account> findAccountsByClientId(@Param("clientId") UUID clientId);
 
-
-
-
     @Query("SELECT c FROM Client c WHERE " +
             "(:firstName is null or :firstName='' or lower(c.firstName) LIKE lower(concat('%', :firstName, '%'))) and" +
             "(:lastName is null or :lastName='' or lower(c.lastName) LIKE lower(concat('%', :lastName, '%'))) and " +
@@ -29,7 +26,6 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     List<Client> findClientByParam(@Param("firstName") String firstName,
                                      @Param("lastName") String lastName,
                                      @Param("email") String email);
-
     @Modifying
     @Query("UPDATE Client c " +
             "SET c.taxCode = CASE WHEN :taxCode IS " +
@@ -38,7 +34,7 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
             "c.lastName = CASE WHEN :lastName IS NULL OR :lastName='' THEN c.lastName ELSE :lastName END, " +
             "c.email = CASE WHEN :email IS NULL OR :email='' THEN c.email ELSE :email END, " +
             "c.address = CASE WHEN :address IS NULL OR :address='' THEN c.address ELSE :address END, " +
-            "c.phone = CASE WHEN :phone IS NOT NULL OR :phone=''THEN :phone ELSE c.phone END " +
+            "c.phone = CASE WHEN :phone IS NULL OR :phone=''THEN c.phone ELSE :phone END " +
             "WHERE c.id = :id")
     void updateClientByParam(@Param("id") UUID id,
                               @Param("taxCode") String taxCode,
@@ -47,5 +43,4 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
                               @Param("email") String email,
                               @Param("address") String address,
                               @Param("phone") String phone);
-
 }

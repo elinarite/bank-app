@@ -18,10 +18,10 @@ import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Validated
 @Getter
 @Setter
 @AllArgsConstructor
@@ -58,13 +58,13 @@ public class Account {
     @Column(name = "isActive")
     private boolean isActive;
 
-    @Balance
-    @Column(name = "balance", precision = 2, scale = 2)
+//    @Balance
+    @Column(name = "balance", precision = 2)
     private BigDecimal balance;
 
     @NotNull(message = "Currency code cant be empty")
     @Column(name = "currency_code")
-    private CurrencyCode currencyCode;
+    private String currencyCode;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -75,7 +75,7 @@ public class Account {
     private Timestamp updateAt;
 
 
-//
+
 //    @OneToMany(mappedBy = "debitAccountId", fetch = FetchType.LAZY)
 //    private List<Transaction> debitTransactions;
 //
@@ -109,7 +109,7 @@ public class Account {
                 '}';
     }
 }
-//todo Enum String or Integer, or int
+
 //todo @oneToMany better biDirection, @oneToOne better unidirectional
 //todo Entity Annotation not to match NotEmpty, Unique=true, usw
 //todo spring validation bigDecimal

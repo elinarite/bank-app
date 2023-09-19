@@ -21,13 +21,5 @@ public class UserInfo {
     private String password;
     private String roles;
 
-//    @ElementCollection(fetch= FetchType.EAGER)
-//    @CollectionTable(
-//            name="roles",
-//            joinColumns = @JoinColumn(name="user_id")
-//    )
-//    @Column(name="user_role")
-//    private List<String> roles;
-
 }
 

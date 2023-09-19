@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -91,5 +92,10 @@ public class ManagerService {
     @Transactional
     public void updateManagerByParam(Long id, String firstName, String lastName, String email, boolean isActive) {
         managerRepository.updateManagerByParam(id, firstName, lastName, email, isActive);
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        managerRepository.deleteById(id);
     }
 }

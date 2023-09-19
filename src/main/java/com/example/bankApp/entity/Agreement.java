@@ -1,11 +1,11 @@
 package com.example.bankApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -16,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "agreements")
 public class Agreement {
 
@@ -24,11 +25,14 @@ public class Agreement {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "account_id", referencedColumnName = "id", updatable = false, unique = true)
+    @OneToOne (fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "account_id", referencedColumnName = "id", updatable = false)
     private Account accountId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "product_id", referencedColumnName = "id", updatable = false)
     private Product productId;
@@ -64,8 +68,6 @@ public class Agreement {
     public String toString() {
         return "Agreement{" +
                 "id=" + id +
-                ", accountId=" + accountId +
-                ", productId=" + productId +
                 ", interestRate=" + interestRate +
                 ", isActive=" + isActive +
                 ", sum=" + sum +
