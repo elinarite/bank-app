@@ -87,4 +87,3 @@ public class Manager {
                 '}';
     }
 }
-//todo BaseEntity

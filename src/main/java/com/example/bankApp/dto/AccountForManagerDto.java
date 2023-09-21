@@ -23,7 +23,7 @@ public class AccountForManagerDto {
     Integer type;
     boolean isActive;
     BigDecimal balance;
-    String  currencyCode;
+    String currencyCode;
     String managerFirstName;
     String managerLastName;
 

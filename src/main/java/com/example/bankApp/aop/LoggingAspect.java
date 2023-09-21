@@ -40,5 +40,4 @@ public class LoggingAspect {
 
         return result;
     }
-
 }

@@ -21,5 +21,4 @@ public class ClientForManagerDto {
     String address;
     String phone;
 
-
 }

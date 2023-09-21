@@ -21,17 +21,17 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/manager/id")
-    public ResponseEntity<Product> findById(@RequestBody Long id){
+    public ResponseEntity<Product> findById(@RequestBody Long id) {
         return productService.findById(id);
     }
 
     @GetMapping("/manager/all/full")
-    public ResponseEntity<List<Product>> findAll(){
+    public ResponseEntity<List<Product>> findAll() {
         return productService.findAll();
     }
 
     @GetMapping("/manager/product-typ")
-    public ResponseEntity<List<Product>> findByProductTyp(@RequestParam String productTyp){
+    public ResponseEntity<List<Product>> findByProductTyp(@RequestParam String productTyp) {
         return productService.findByProductTyp(productTyp);
     }
 
@@ -47,27 +47,27 @@ public class ProductController {
     }
 
     @PostMapping("/manager/search")
-    public ResponseEntity<List<Product>> searchProductsByParams(@RequestParam (required = false) BigDecimal interestRateFrom,
-                                                                @RequestParam (required = false) BigDecimal interestRateTo,
-                                                                @RequestParam (required = false) Integer limitFrom,
-                                                                @RequestParam (required = false) Integer limitTo
-                                                                ){
+    public ResponseEntity<List<Product>> searchProductsByParams(@RequestParam(required = false) BigDecimal interestRateFrom,
+                                                                @RequestParam(required = false) BigDecimal interestRateTo,
+                                                                @RequestParam(required = false) Integer limitFrom,
+                                                                @RequestParam(required = false) Integer limitTo
+    ) {
         return productService.searchProductsByParams(interestRateFrom, interestRateTo, limitFrom, limitTo);
     }
 
     @PutMapping("/manager/add")
-    public ResponseEntity<Product> add (@RequestBody @Valid Product product){
+    public ResponseEntity<Product> add(@RequestBody @Valid Product product) {
         return new ResponseEntity<>(productService.add(product), HttpStatus.CREATED);
     }
 
     @PutMapping("/manager/{id}/update")
-    public ResponseEntity<Product> updateManagerByParam(@PathVariable Long id,@RequestParam(required = false) String productTyp,
+    public ResponseEntity<Product> updateManagerByParam(@PathVariable Long id, @RequestParam(required = false) String productTyp,
                                                         @RequestParam(required = false) boolean isActive,
                                                         @RequestParam(required = false) CurrencyCode currencyCode,
                                                         @RequestParam(required = false) BigDecimal interestRate,
-                                                        @RequestParam(required = false) Integer limit){
+                                                        @RequestParam(required = false) Integer limit) {
 
-        productService.updateProductByParam(id, isActive, currencyCode, interestRate, limit );
+        productService.updateProductByParam(id, isActive, currencyCode, interestRate, limit);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

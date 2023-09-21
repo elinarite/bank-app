@@ -58,7 +58,7 @@ public class Account {
     @Column(name = "isActive")
     private boolean isActive;
 
-//    @Balance
+    //    @Balance
     @Column(name = "balance", precision = 2)
     private BigDecimal balance;
 
@@ -73,7 +73,6 @@ public class Account {
     @UpdateTimestamp
     @Column(name = "update_at")
     private Timestamp updateAt;
-
 
 
 //    @OneToMany(mappedBy = "debitAccountId", fetch = FetchType.LAZY)
@@ -116,5 +115,4 @@ public class Account {
 //todo Base Entity
 //todo @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 //todo test @Email Client, Manager
-
-
+//todo BaseEntity

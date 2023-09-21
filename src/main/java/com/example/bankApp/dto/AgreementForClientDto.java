@@ -4,7 +4,7 @@ import lombok.Value;
 
 @Value
 public class AgreementForClientDto {
-    String accountNumber;
 
+    String accountNumber;
 
 }

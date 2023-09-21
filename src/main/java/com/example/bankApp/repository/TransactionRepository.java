@@ -17,6 +17,4 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     @Query("SELECT c FROM Transaction c WHERE c.creditAccountId.id = :creditAccountId")
     List<Transaction> findByCreditAccountId(@Param("creditAccountId") UUID creditAccountId);
-
-
 }

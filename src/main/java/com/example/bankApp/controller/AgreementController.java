@@ -21,17 +21,17 @@ public class AgreementController {
     private final AgreementService agreementService;
 
     @GetMapping("/manager/id")
-    public ResponseEntity<Agreement> findById(@RequestBody Long id){
+    public ResponseEntity<Agreement> findById(@RequestBody Long id) {
         return agreementService.findById(id);
     }
 
     @GetMapping("/manager/all/full")
-    public ResponseEntity<List<Agreement>> findAll(){
+    public ResponseEntity<List<Agreement>> findAll() {
         return agreementService.findAll();
     }
 
     @PutMapping("/manager/add")
-    public ResponseEntity<Agreement> add (@RequestBody @Valid Agreement agreement){
+    public ResponseEntity<Agreement> add(@RequestBody @Valid Agreement agreement) {
         return new ResponseEntity<>(agreementService.add(agreement), HttpStatus.CREATED);
     }
 }

@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-    @RequestMapping("/auth")
-    public class UserController {
+@RequestMapping("/auth")
+public class UserController {
 
     @Autowired
 //    @Qualifier("userInfoService")
@@ -52,45 +52,23 @@ import java.util.stream.Collectors;
         return "Welcome to Admin Profile";
     }
 
-//    @PostMapping("/generateToken")
-//    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getPassword(), authRequest.getPassword()));
-//        if (authentication.isAuthenticated()) {
-//
-//            //todo getUserName
-//            return jwtService.generateToken(authRequest.getEmail());
-//        } else {
-//            throw new UsernameNotFoundException("invalid user request !");
-//        }
-//    }
-//}
     @PostMapping("/generateToken")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-            List<SimpleGrantedAuthority> authorities = authRequest.getRoles()
-                    .stream()
-                    .map(role -> new SimpleGrantedAuthority(role))
-                    .collect(Collectors.toList());
+        List<SimpleGrantedAuthority> authorities = authRequest.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role))
+                .collect(Collectors.toList());
 
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword(), authorities)
-            );
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword(), authorities)
+        );
 
-            if (authentication.isAuthenticated()) {
-                // todo getUserName
-                return jwtService.generateToken(authRequest.getEmail());
-            } else {
-                throw new UsernameNotFoundException("Invalid user request!");
-            }
+        if (authentication.isAuthenticated()) {
+            // todo getUserName
+            return jwtService.generateToken(authRequest.getEmail());
+        } else {
+            throw new UsernameNotFoundException("Invalid user request!");
         }
-
     }
 
-
-
-//    @GetMapping
-//    public Roles auth() {
-//        return userInfoService.getAuthorizedUserRole();
-//    }
-//    }
-
-
+}
