@@ -80,8 +80,8 @@ public class AccountService {
 
     /**
      * The method retrieves aggregated financial information for each client from the database.
-     * The query selects the client's identifier, total balance of their card accounts,
-     * average balance, and the count of their existing card accounts. This data is grouped by clients.
+     * The query selects the client's identifier, total balance of their accounts,
+     * average balance, and the count of their existing accounts. This data is grouped by clients.
      */
 
     public ResponseEntity<List<Object[]>> getTotalBalanceByClientId() {
@@ -91,12 +91,12 @@ public class AccountService {
     /**
      * The method displays aggregated financial information for all card accounts.
      *
-     * @totalBalanceSum - Sum of all balances of all card accounts.
-     * @totalBlockedBalanceSum - Sum of balances of blocked card accounts.
-     * @totalUnblockedBalanceSum - Sum of balances of unblocked card accounts.
-     * @getTotalAccountCount - Total number of card accounts.
-     * @getCountOfBlockedAccounts -  Number of blocked card accounts.
-     * @getCountOfActiveAccounts - Number of unblocked card accounts.
+     * @Param totalBalanceSum - Sum of all balances of all card accounts.
+     * @Param totalBlockedBalanceSum - Sum of balances of blocked card accounts.
+     * @Param totalUnblockedBalanceSum - Sum of balances of unblocked card accounts.
+     * @Param getTotalAccountCount - Total number of card accounts.
+     * @Param getCountOfBlockedAccounts -  Number of blocked card accounts.
+     * @Param getCountOfActiveAccounts - Number of unblocked card accounts.
      */
 
     public ResponseEntity<Map<String, Object>> getBalanceSummary() {
@@ -121,7 +121,7 @@ public class AccountService {
 
     /**
      * This provided method retrieves aggregated financial information for each currency from the database.
-     * The query selects the currency code, total balance across card accounts, average balance, and the count of existing accounts.
+     * The query selects the currency code, total balance across accounts, average balance, and the count of existing accounts.
      * These data are grouped by currency code.
      */
 
@@ -134,11 +134,11 @@ public class AccountService {
      * This method provides aggregated financial information based on the client's identifier.
      *
      * @Param totalBalanceSum - Sum of all balances of the client's card accounts.
-     * @totalBlockedBalanceSum - Sum of balances of the client's blocked card accounts.
-     * @totalUnblockedBalanceSum - Sum of balances of the client's unblocked card accounts.
-     * @getTotalAccountCount - Total number of card accounts belonging to the client.
-     * @getCountOfBlockedAccounts - Number of blocked card accounts belonging to the client.
-     * @getCountOfActiveAccounts - Number of unblocked card accounts belonging to the client.
+     * @Param totalBlockedBalanceSum - Sum of balances of the client's blocked card accounts.
+     * @Param totalUnblockedBalanceSum - Sum of balances of the client's unblocked card accounts.
+     * @Param getTotalAccountCount - Total number of card accounts belonging to the client.
+     * @Param getCountOfBlockedAccounts - Number of blocked card accounts belonging to the client.
+     * @Param getCountOfActiveAccounts - Number of unblocked card accounts belonging to the client.
      */
 
     public ResponseEntity<Map<String, Object>> getBalanceSummaryByClientId(UUID clientId) {

@@ -1,7 +1,7 @@
 package com.example.bankApp.entity;
 
 
-import com.example.bankApp.entity.enums.Roles;
+import com.example.bankApp.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserInfoService implements UserDetailsService {

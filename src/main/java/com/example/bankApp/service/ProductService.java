@@ -26,15 +26,13 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-//    @Cacheable(cacheNames = {"creditOfferById"}, key = "#id")
-    public ResponseEntity<Product> findById(Long id){
+    public ResponseEntity<Product> findById(Long id) {
 
         Product product = productRepository.findById(id).get();
 
         return ResponseEntity.ok(product);
     }
-//
-//    @Cacheable(cacheNames = {"creditOfferAll"})
+
     public ResponseEntity<List<Product>> findAll() {
 
         List<Product> products = productRepository.findAll();
@@ -44,10 +42,10 @@ public class ProductService {
         }
         return ResponseEntity.ok(products);
     }
-//    @Cacheable(cacheNames = {"creditOfferByName"})
-    public ResponseEntity<List<Product>> findByProductTyp(String productTyp){
 
-        List<Product>products = productRepository.findByProductTyp(productTyp);
+    public ResponseEntity<List<Product>> findByProductTyp(String productTyp) {
+
+        List<Product> products = productRepository.findByProductTyp(productTyp);
 
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -60,7 +58,7 @@ public class ProductService {
         List<Product> activeProducts = productRepository.findAllActiveProducts();
 
         if (activeProducts.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(activeProducts);
     }
@@ -69,26 +67,26 @@ public class ProductService {
         List<Product> inactiveProducts = productRepository.findAllInactiveProducts();
 
         if (inactiveProducts.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(inactiveProducts);
     }
 
     public ResponseEntity<List<Product>> searchProductsByParams(BigDecimal interestRateFrom,
-                                                BigDecimal interestRateTo,
-                                                Integer limitFrom,
-                                                Integer limitTo) {
+                                                                BigDecimal interestRateTo,
+                                                                Integer limitFrom,
+                                                                Integer limitTo) {
 
         List<Product> products = productRepository.searchProductsByParams(interestRateFrom, interestRateTo, limitFrom, limitTo);
 
         if (products.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(products);
     }
 
     @Transactional
-    public Product add(Product product){
+    public Product add(Product product) {
         product.setId(null);
         return productRepository.save(product);
     }

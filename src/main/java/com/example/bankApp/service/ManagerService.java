@@ -61,7 +61,7 @@ public class ManagerService {
         List<Manager> activeManagers = managerRepository.findAllActiveManagers();
 
         if (activeManagers.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(activeManagers);
     }
@@ -70,7 +70,7 @@ public class ManagerService {
         List<Manager> inactiveManagers = managerRepository.findAllInactiveManagers();
 
         if (inactiveManagers.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(inactiveManagers);
     }

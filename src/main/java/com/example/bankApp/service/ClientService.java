@@ -1,12 +1,9 @@
 package com.example.bankApp.service;
 
 import com.example.bankApp.dto.ClientForManagerDto;
-import com.example.bankApp.dto.ManagerForClientDto;
 import com.example.bankApp.entity.Account;
 import com.example.bankApp.entity.Client;
-import com.example.bankApp.entity.Manager;
 import com.example.bankApp.mapper.ClientMapper;
-import com.example.bankApp.mapper.ManagerMapper;
 import com.example.bankApp.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -62,14 +59,14 @@ public class ClientService {
     }
 
     @Transactional
-    public Client add(Client client){
+    public Client add(Client client) {
         client.setId(null);
         return clientRepository.save(client);
     }
 
     @Transactional
     public void updateClientByParam(UUID id, String taxCode, String firstName, String lastName, String email, String address, String phone) {
-        clientRepository.updateClientByParam(id, taxCode, firstName, lastName, email, address, phone );
+        clientRepository.updateClientByParam(id, taxCode, firstName, lastName, email, address, phone);
     }
 
     @Transactional

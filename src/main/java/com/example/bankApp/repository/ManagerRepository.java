@@ -22,10 +22,6 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
             " ORDER BY m.lastName ASC")
     List<Manager> findAll();
 
-//    @Query("SELECT c. FROM Account c " +
-//            "WHERE c.managerId.id = :managerId ")
-//    List<Account> findAccountsByManagerId(@Param("managerId") Long managerId);
-
     @Query("SELECT m.accounts FROM Manager m WHERE m.id = :managerId")
     List<Account> findAccountsByManagerId(@Param("managerId") Long managerId);
 

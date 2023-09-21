@@ -1,18 +1,17 @@
 package com.example.bankApp.entity;
 
-import com.example.bankApp.entity.enums.Roles;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter

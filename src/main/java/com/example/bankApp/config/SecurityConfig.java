@@ -78,10 +78,6 @@ public class SecurityConfig {
                 .build();
     }
 
-
-
-
-
     // Password Encoding
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -100,7 +96,4 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
-
 }
-

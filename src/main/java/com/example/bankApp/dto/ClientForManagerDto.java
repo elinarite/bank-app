@@ -20,4 +20,6 @@ public class ClientForManagerDto {
     String email;
     String address;
     String phone;
+
+
 }

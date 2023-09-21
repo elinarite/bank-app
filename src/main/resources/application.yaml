@@ -44,8 +44,8 @@ spring:
 #      order:  10
 #  security:
 #    user:
-#     password: Test12345_
-
+#     password: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0dHR0QGdvb2dsZS5jb20iLCJpYXQiOjE2OTUxMDcxNDUsImV4cCI6MTY5NjM3MDQwMH0.r17MyzURw5ptFc2lReFustnjbYIINMLUKCz-knkrc6M
+#
 
 
 
